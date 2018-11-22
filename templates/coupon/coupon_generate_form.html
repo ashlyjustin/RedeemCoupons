@@ -1,0 +1,12 @@
+{%extends 'base.html'%}
+{%load bootstrap3 %}
+
+{% block content %}
+<h4>Create a new post</h4>
+<form id='couponForm' action="{%url 'coupon:create_coupon'%}" method="post">
+	{% csrf_token%}
+	{% bootstrap_form form %}
+	<input type="submit"  value="Send Coupon" class="btn btn-large">
+
+</form>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block pre_content %}
+<div class="col-md-4">
+	<div class="content">
+		{% if user.is_authenticated %}
+		<h2>
+			Welcome back
+			@{{user.username }}
+		</h2>
+
+    {% endif %}
+			
+
+			<h4>Welcome to the Cafe Management Portal</h4>
+	</div>
+	{% if user.is_authenticated and user.is_generator %}
+	<a href="{% url 'coupon:createCafe' %}" class="btn btn-md btn-fill btn-warning"><span class="glyphicon glyphicon-plus-sign"></span> Add new Cafe</a>
+	{% endif %}
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="col-md-8">
+	<h2>Cafes in your locality are:</h2>
+	<div class="list-group">
+		{% if cafe_list %}
+  
+
+		{% for cafe in cafe_list %}
+		  <a class="list-group-item" href="{% url 'coupon:cafe_detail' pk=cafe.pk cafeName=cafe.cafeName %}">
+			     <p class="title list-group-item-heading">{{ cafe.cafeName }}</p>
+			
+		</a>
+		{% endfor %}
+		{% else %}
+  <p>There are no cafes.Add more</p>
+{% endif %}
+	</div>
+</div>
+{% endblock %}

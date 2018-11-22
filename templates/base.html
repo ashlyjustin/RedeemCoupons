@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cafe System Portal</title>
+    <!-- MAterializeCSS -->
+      <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    
+
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  </head>
+  <body>
+
+    <nav role='navigation' id='navigation'>
+      
+        <a class="brand-logo " href="{%url 'home'%}">Cafe System</a>
+        <ul class="right hide-on-med-and-down">
+          {% if user.is_authenticated and user.is_generator %}
+            <li><a href="{% url 'coupon:createCafe' %}">Add Cafe</a></li>
+            <li><a href="{% url 'coupon:cafe_list' %}">Cafes</a></li>
+            <li><a href="{% url 'coupon:create_coupon' %}">Create Coupons</a></li>
+            <li><a href="{% url 'coupon:couponList' username=user.username %}">Coupons</a></li>
+            <li><a href="{% url 'logout'%}">Logout</a></li>
+          {% elif user.is_authenticated and user.is_validator %}
+
+            <li><a href="{% url 'coupon:cafe_list' %}">Cafes</a></li>
+            <li><a href="{% url 'coupon:redeem' %}">Redeem Coupon</a></li>
+            
+            <li><a href="{% url 'logout'%}">Logout</a></li>
+
+          {% else %}
+            <li><a href="{% url 'coupon:cafe_list' %}">Cafes</a></li>
+            <li><a href="{% url 'login'%}">Log In</a></li>
+            <li><a class="waves-effect waves-light btn modal-trigger" href="#signup">Sign Up</a>
+            </li>
+          
+            <!--  -->
+          {% endif %}
+
+
+        </ul>
+      
+    </nav>
+        <div id="signup" class="modal">
+    <div class="modal-content">
+      <div class="container">
+        <div class="row">
+          <div class="col s6"><a href="{% url 'coupon:generator_signup'   %}" align="center">Generate</a></div>
+      <div class="col s6"><a href="{% url 'coupon:validator_signup'   %}" align="center">Redeem</a></div>
+          
+        </div>
+      </div>
+      
+    </div>
+    
+  </div>
+          
+    <div class="container">
+
+    {% block pre_content %}
+
+    {% endblock %}
+    {% block content %}
+
+
+    {% endblock %}
+  </div>
+  <script type = "text/javascript"
+         src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+            
+  <script type="text/javascript">
+    $(document).ready(function() {
+  // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+  /*$('.view').click(function (){
+    $('#modal1').modal('open'); 
+    alert('edskjcxnm');
+  });*/
+  /*$('.view').leanModal();*/
+  $('#signup').modal();
+  
+});
+
+  </script>
+  </body>
+</html>
